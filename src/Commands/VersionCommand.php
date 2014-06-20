@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class VersionCommand
  * @package Iono\Console\Commands
- * @author  yuuki.takezawa<yuuki.takezawa@excite.jp>
+ * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  */
 class VersionCommand extends Command
 {
