@@ -15,7 +15,7 @@ interface CommandInterface
     /**
      * @return mixed
      */
-    public function argument();
+    public function arguments();
 
     /**
      * @param InputInterface $input

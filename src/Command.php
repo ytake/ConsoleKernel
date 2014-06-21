@@ -14,13 +14,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Command extends SfCommand implements CommandInterface
 {
 
-    /** @var Console */
-    protected $console;
+    /** @var string  command name */
+    protected $command;
+
+    /** @var string  command description */
+    protected $description;
 
     /**
      * @return mixed
      */
-    abstract function argument();
+    abstract function arguments();
 
     /**
      * @param InputInterface $input
@@ -28,24 +31,6 @@ abstract class Command extends SfCommand implements CommandInterface
      * @return mixed
      */
     abstract function action(InputInterface $input, OutputInterface $output);
-
-
-    /**
-     * @param Console $console
-     */
-    public function __construct(Console $console)
-    {
-        $this->console = $console;
-    }
-
-    /**
-     * @param SfCommand $class
-     * @return SfCommand
-     */
-    public function register(SfCommand $class)
-    {
-        return $this->console->add($class);
-    }
 
 
     /**
@@ -61,11 +46,14 @@ abstract class Command extends SfCommand implements CommandInterface
     }
 
     /**
-     *
+     * command interface configure
+     * @return void
      */
     public function configure()
     {
-        $this->argument();
+        $this->setName($this->command);
+        $this->setDescription($this->description);
+        $this->arguments();
     }
 
 }
