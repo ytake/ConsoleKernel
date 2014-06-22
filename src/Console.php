@@ -2,7 +2,7 @@
 namespace Iono\Console;
 
 use Colors\Color;
-use Illuminate\Container\Container;
+use Iono\Console\Container;
 use Iono\Console\Commands\ListCommand;
 use Symfony\Component\Console\Application;
 use Iono\Console\Commands\CommandInterface;
@@ -12,6 +12,7 @@ use Iono\Console\Commands\ApplicationCommand;
  * Class Console
  * @package Iono\Console
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Console extends Application
 {
@@ -56,7 +57,7 @@ Iono.Console";
      */
     protected function boot()
     {
-        $this->container['path'] = __DIR__;
+        $this->container['path'] = __DIR__ . "/app";
         $this->container['prefix'] = $this->prefix;
         // file scan
         $reflection = new Tokenizer($this->container, new Color);

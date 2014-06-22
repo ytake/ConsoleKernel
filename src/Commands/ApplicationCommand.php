@@ -1,9 +1,10 @@
 <?php
 namespace Iono\Console\Commands;
 
+use ReflectionClass;
 use Iono\Console\Command;
-use Iono\Console\Exception\ClassNotFoundException;
 use Iono\Console\Tokenizer;
+use Iono\Console\Exception\ClassNotFoundException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +18,7 @@ class ApplicationCommand extends Command
 {
 
     /** @var string  */
-    protected $command = "console:app";
+    protected $command = "console:action";
 
     /** @var string */
     protected $description = "application scripts";
@@ -59,16 +60,34 @@ class ApplicationCommand extends Command
         //
         if(isset($parsed['path'])) {
             //
-            if(!$application->offsetExists($parsed['path'])) {
+            $alias = $application->getAliases()[$application['prefix'] . $parsed['path']];
+            if(!$alias) {
                 throw new ClassNotFoundException("Not Found [{$parsed['path']}] command");
             }
             // query parse
             if(isset($parsed['query'])) {
                 parse_str($parsed['query'], $query);
             }
-            $command = $application['prefix'] . $parsed['path'];
-            $application->make($command)->perform($query);
-        }
 
+            $reflectionClass = new ReflectionClass($alias);
+            $traits = $reflectionClass->getTraits();
+            if(count($traits)) {
+                foreach($traits as $trait) {
+                    if("Iono\Console\Traits\ComponentTrait" == $trait->getName()) {
+                        /** @var  $start */
+                        $start = microtime(true);
+                        $class = $reflectionClass->newInstance();
+                        $appProperty = $reflectionClass->getProperty('app');
+                        $appProperty->setAccessible(true);
+                        $appProperty->setValue($class, $application);
+                        $class->action($query);
+                        /** @var  $end */
+                        $end = microtime(true);
+                        $process = sprintf('%0.5f', ($end - $start));
+                        $output->writeln("<info>{$process}</info><comment>/second</comment>");
+                    }
+                }
+            }
+        }
     }
 }

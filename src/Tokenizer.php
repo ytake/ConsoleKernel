@@ -4,7 +4,7 @@ namespace Iono\Console;
 use Colors\Color;
 use ReflectionClass;
 use TokenReflection\Broker;
-use Illuminate\Container\Container;
+use Iono\Console\Container;
 
 /**
  * Class Tokenizer
@@ -23,7 +23,7 @@ class Tokenizer
     /** @var \Colors\Color  */
     protected $color;
 
-    /** @var \Illuminate\Container\Container  */
+    /** @var \Iono\Console\Container  */
     protected $container;
 
     /**
@@ -50,23 +50,40 @@ class Tokenizer
 
             if($this->parentClass === $class->getParentClassName()) {
 
-                $className = $class->getName();
-                $reflectionClass = new ReflectionClass($class->getName());
-                $reflectionPropertyCommand = $reflectionClass->getProperty('command');
-                $reflectionPropertyCommand->setAccessible(true);
-
-                $name = $reflectionPropertyCommand->getValue(new $className);
+                $commandValue = $this->getProperty($class->getName(), 'command');
                 // command name not found
-                if(is_null($name)) {
+                if(is_null($commandValue)) {
                     $color = $this->color;
-                    echo $color("Command name can not be found {$className}")
+                    echo $color("Command name can not be found {$class->getName()}")
                             ->white->bold->bg_magenta . PHP_EOL;
                 }
-                if($name) {
-                    $this->container->bind("iono.command.{$name}", $className);
+                if($commandValue) {
+                    $this->container->alias($class->getName(), "{$this->container['prefix']}{$commandValue}");
                 }
             }
         }
         return $this->container;
+    }
+
+
+    /**
+     * @param $class
+     * @param string $command
+     * @return mixed
+     */
+    public function getProperty($class, $command = '')
+    {
+        $reflectionClass = new ReflectionClass($class);
+        $instance = $reflectionClass->newInstanceWithoutConstructor();
+        $reflectionPropertyCommand = $reflectionClass->getProperty($command);
+        $reflectionPropertyCommand->setAccessible(true);
+
+        return $reflectionPropertyCommand->getValue($instance);
+    }
+
+
+    public function binder()
+    {
+        // @todo
     }
 }

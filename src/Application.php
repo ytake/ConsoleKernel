@@ -12,10 +12,13 @@ abstract class Application implements ApplicationInterface
     /** @var  string */
     protected $command;
 
+    /** @var  string */
+    protected $description;
+
     /**
      * @param array $array
      * @return mixed
      */
-    abstract function perform(array $array);
+    abstract function action(array $array);
 
 }

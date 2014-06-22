@@ -26,7 +26,7 @@ class ListCommand extends Command
     protected $tokenizer;
 
     /** @var array  */
-    protected $header = ["Command Name", "Class", "filePath"];
+    protected $header = ["Command Name", "Class", "filePath", "description"];
 
     /**
      * @param Tokenizer $tokenizer
@@ -56,27 +56,30 @@ class ListCommand extends Command
         $application = $this->tokenizer->getApplication();
 
         // get bindings
-        $bindings = $application->getBindings();
+        $aliases = $application->getAliases();
+
         $row = [];
         $message = "<comment>Command Line Application is not implemented!</comment>";
         /**  */
-        if(count($bindings)) {
+        if(count($aliases)) {
 
-            foreach($bindings as $key => $bind) {
+            foreach($aliases as $key => $alias) {
 
                 if(preg_match("/^{$application['prefix']}/", $key)) {
+                    // @todo
+                    $reflectionClass = new ReflectionClass($alias);
+                    // get description
+                    $description = $this->tokenizer->getProperty($alias, 'description');
 
-                    $class = get_class($application->offsetGet($key));
-                    $reflectionClass = new ReflectionClass($class);
                     $row[] = [
                         str_replace("{$application['prefix']}", "", $key),
-                        $class,
-                        $reflectionClass->getFileName()
+                        $reflectionClass->getName(),
+                        $reflectionClass->getFileName(),
+                        $description
                     ];
                     $message = "";
                 }
             }
-
         }
         // table render
         $table = new Table($output);
