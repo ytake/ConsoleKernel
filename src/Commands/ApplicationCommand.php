@@ -4,6 +4,7 @@ namespace Iono\Console\Commands;
 use ReflectionClass;
 use Iono\Console\Command;
 use Iono\Console\Tokenizer;
+use Iono\Console\Container;
 use Iono\Console\Exception\ClassNotFoundException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,13 +27,18 @@ class ApplicationCommand extends Command
     /** @var Tokenizer */
     protected $tokenizer;
 
+    /** @var Container */
+    protected $container;
+
     /**
      * @param Tokenizer $tokenizer
+     * @param Container $container
      */
-    public function __construct(Tokenizer $tokenizer)
+    public function __construct(Tokenizer $tokenizer, Container $container)
     {
         parent::__construct();
         $this->tokenizer = $tokenizer;
+        $this->container = $container;
     }
 
     /**
@@ -57,6 +63,7 @@ class ApplicationCommand extends Command
         $parsed = parse_url($input->getArgument('action'));
         // search application
         $application = $this->tokenizer->getApplication();
+        // @todo refactor
         //
         if(isset($parsed['path'])) {
             //
@@ -68,15 +75,30 @@ class ApplicationCommand extends Command
             if(isset($parsed['query'])) {
                 parse_str($parsed['query'], $query);
             }
-
             $reflectionClass = new ReflectionClass($alias);
+            $constructor = $reflectionClass->getConstructor();
+
+            if (is_null($constructor))
+            {
+                $class = $reflectionClass->newInstance();
+            }
+            $dependencies = $constructor->getParameters();
+
+
+            if(count($dependencies)) {
+
+                foreach ($dependencies as $parameter) {
+                    $params[] = $this->container->make($parameter->getClass()->name);
+                }
+                $class = $reflectionClass->newInstanceArgs($params);
+            }
+
             $traits = $reflectionClass->getTraits();
             if(count($traits)) {
                 foreach($traits as $trait) {
-                    if("Iono\Console\Traits\ComponentTrait" == $trait->getName()) {
+                    if("Iono\\Console\\Traits\\ComponentTrait" == $trait->getName()) {
                         /** @var  $start */
                         $start = microtime(true);
-                        $class = $reflectionClass->newInstance();
                         $appProperty = $reflectionClass->getProperty('app');
                         $appProperty->setAccessible(true);
                         $appProperty->setValue($class, $application);

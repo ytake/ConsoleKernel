@@ -47,15 +47,15 @@ Iono.Console";
     /**
      * console start
      */
-    public function start()
+    public function start($app = null)
     {
-        $this->boot()->run();
+        $this->boot($app = null)->run();
     }
 
     /**
      * @return $this
      */
-    protected function boot()
+    protected function boot($app = null)
     {
         $this->container['path'] = __DIR__ . "/app";
         $this->container['prefix'] = $this->prefix;
@@ -63,7 +63,7 @@ Iono.Console";
         $reflection = new Tokenizer($this->container, new Color);
 
         // application command
-        $this->registerCommand(new ApplicationCommand($reflection));
+        $this->registerCommand(new ApplicationCommand($reflection, $this->container));
 
         // application list command
         $this->registerCommand(new ListCommand($reflection));
