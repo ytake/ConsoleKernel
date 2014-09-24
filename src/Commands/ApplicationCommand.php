@@ -1,7 +1,6 @@
 <?php
 namespace Iono\Console\Commands;
 
-use ReflectionClass;
 use Iono\Console\Command;
 use Iono\Console\Tokenizer;
 use Iono\Console\Container;
@@ -64,7 +63,6 @@ class ApplicationCommand extends Command
         // search application
         $application = $this->tokenizer->getApplication();
         // @todo refactor
-        //
         if(isset($parsed['path'])) {
             //
             $alias = $application->getAliases()[$application['prefix'] . $parsed['path']];
@@ -75,41 +73,13 @@ class ApplicationCommand extends Command
             if(isset($parsed['query'])) {
                 parse_str($parsed['query'], $query);
             }
-            $reflectionClass = new ReflectionClass($alias);
-            $constructor = $reflectionClass->getConstructor();
-
-            if (is_null($constructor))
-            {
-                $class = $reflectionClass->newInstance();
-            }
-            $dependencies = $constructor->getParameters();
-
-
-            if(count($dependencies)) {
-
-                foreach ($dependencies as $parameter) {
-                    $params[] = $this->container->make($parameter->getClass()->name);
-                }
-                $class = $reflectionClass->newInstanceArgs($params);
-            }
-
-            $traits = $reflectionClass->getTraits();
-            if(count($traits)) {
-                foreach($traits as $trait) {
-                    if("Iono\\Console\\Traits\\ComponentTrait" == $trait->getName()) {
-                        /** @var  $start */
-                        $start = microtime(true);
-                        $appProperty = $reflectionClass->getProperty('app');
-                        $appProperty->setAccessible(true);
-                        $appProperty->setValue($class, $application);
-                        $class->action($query);
-                        /** @var  $end */
-                        $end = microtime(true);
-                        $process = sprintf('%0.5f', ($end - $start));
-                        $output->writeln("<info>{$process}</info><comment>/second</comment>");
-                    }
-                }
-            }
+            $class = $this->container->make($alias);
+            $start = microtime(true);
+            $class->action($query);
+            /** @var  $end */
+            $end = microtime(true);
+            $process = sprintf('%0.5f', ($end - $start));
+            $output->writeln("<info>{$process}</info><comment>/second</comment>");
         }
     }
 }

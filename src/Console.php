@@ -2,11 +2,11 @@
 namespace Iono\Console;
 
 use Colors\Color;
-use Iono\Console\Container;
 use Iono\Console\Commands\ListCommand;
-use Symfony\Component\Console\Application;
 use Iono\Console\Commands\CommandInterface;
 use Iono\Console\Commands\ApplicationCommand;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Console\Application as ConsoleApplication;
 
 /**
  * Class Console
@@ -14,7 +14,7 @@ use Iono\Console\Commands\ApplicationCommand;
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Console extends Application
+class Console extends ConsoleApplication
 {
 
     /** @var string  console application name */
@@ -32,8 +32,14 @@ Iono.Console";
     /** @var string  */
     private $prefix = "iono.command.";
 
-    /** @var Container */
+    /** @var \Iono\Console\Container */
     protected $container;
+
+    /** @var AnnotationReader */
+    protected $reader;
+
+    /** @var Bootstrap  */
+    protected $bootstrap;
 
     /**
      *
@@ -41,7 +47,9 @@ Iono.Console";
     public function __construct()
     {
         parent::__construct($this->name, $this->version);
-        $this->container = new Container;
+        $this->container = new \Iono\Console\Container;
+        $this->bootstrap = new \Iono\Console\Bootstrap;
+        $this->provider = new Provider;
     }
 
     /**
@@ -53,12 +61,16 @@ Iono.Console";
     }
 
     /**
+     * @param null $app
      * @return $this
      */
     protected function boot($app = null)
     {
         $this->container['path'] = __DIR__ . "/app";
         $this->container['prefix'] = $this->prefix;
+
+        $this->container = $this->bootstrap->register($this->container, $this);
+
         // file scan
         $reflection = new Tokenizer($this->container, new Color);
 
@@ -69,6 +81,11 @@ Iono.Console";
         $this->registerCommand(new ListCommand($reflection));
 
         return $this;
+    }
+
+    protected function provider(Container $container)
+    {
+
     }
 
     /**

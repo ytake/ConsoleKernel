@@ -2,7 +2,6 @@
 namespace Iono\Console\app;
 
 use Iono\Console\Application;
-use Iono\Console\Traits\ComponentTrait;
 
 /**
  * Class Sample
@@ -11,8 +10,6 @@ use Iono\Console\Traits\ComponentTrait;
  */
 class Sample extends Application
 {
-
-    use ComponentTrait;
 
     /** @var string  */
     protected $command = 'sample';
@@ -26,7 +23,6 @@ class Sample extends Application
     public function __construct(Stub $stub)
     {
         $this->stub = $stub;
-        $this->hoge = 'hoge';
     }
 
     /**s
@@ -35,6 +31,6 @@ class Sample extends Application
      */
     public function action(array $array)
     {
-        var_dump($this->path, $this->stub->get(), $this->hoge);
+        var_dump($this->stub->get());
     }
 }

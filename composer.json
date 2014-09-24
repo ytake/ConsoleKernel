@@ -17,14 +17,17 @@
         "kevinlebrun/colors.php": "0.*",
         "andrewsville/php-token-reflection": "*",
         "illuminate/config": "4.2.*",
+	    "illuminate/cache": "4.2.*",
         "illuminate/container": "4.2.*",
+	    "illuminate/console": "4.2.*",
         "illuminate/database": "4.2.*",
         "predis/predis": "0.*",
         "swiftmailer/swiftmailer": "5.*",
-        "monolog/monolog": "1.*"
+        "monolog/monolog": "1.*",
+        "doctrine/annotations": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "4.*",
         "mockery/mockery": "*"
     },
     "autoload": {
