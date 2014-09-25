@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3d8460e8c7ef504eae91bfd1274f660b",
+    "hash": "3c764220a36d06d77b9ad4cb1a453851",
     "packages": [
         {
             "name": "andrewsville/php-token-reflection",
@@ -269,48 +269,6 @@
                 }
             ],
             "time": "2014-09-11 01:18:00"
-        },
-        {
-            "name": "illuminate/console",
-            "version": "v4.2.9",
-            "target-dir": "Illuminate/Console",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/console.git",
-                "reference": "d52fd2d8debdcb7e1ebf931581fe518ae865db0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/d52fd2d8debdcb7e1ebf931581fe518ae865db0a",
-                "reference": "d52fd2d8debdcb7e1ebf931581fe518ae865db0a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "symfony/console": "2.5.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Illuminate\\Console": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "time": "2014-09-05 17:27:06"
         },
         {
             "name": "illuminate/container",

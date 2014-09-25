@@ -1,7 +1,10 @@
 #!/usr/bin/env php
 <?php
-require __DIR__ . "/vendor/autoload.php";
+$composer = require __DIR__ . "/vendor/autoload.php";
 
-$console = new Iono\Console\Console();
+// application instance
+$console = new Iono\Console\Console;
+
+require __DIR__ . "/src/boot.php";
 
 $console->start();

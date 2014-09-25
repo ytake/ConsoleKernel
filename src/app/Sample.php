@@ -11,6 +11,8 @@ use Iono\Console\Application;
 class Sample extends Application
 {
 
+    use Application\Component;
+
     /** @var string  */
     protected $command = 'sample';
 
@@ -31,6 +33,7 @@ class Sample extends Application
      */
     public function action(array $array)
     {
-        var_dump($this->stub->get());
+        echo '1';
+        var_dump($this->component);
     }
 }

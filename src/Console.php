@@ -2,10 +2,7 @@
 namespace Iono\Console;
 
 use Colors\Color;
-use Iono\Console\Commands\ListCommand;
 use Iono\Console\Commands\CommandInterface;
-use Iono\Console\Commands\ApplicationCommand;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Component\Console\Application as ConsoleApplication;
 
 /**
@@ -35,21 +32,10 @@ Iono.Console";
     /** @var \Iono\Console\Container */
     protected $container;
 
-    /** @var AnnotationReader */
-    protected $reader;
-
-    /** @var Bootstrap  */
-    protected $bootstrap;
-
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct($this->name, $this->version);
         $this->container = new \Iono\Console\Container;
-        $this->bootstrap = new \Iono\Console\Bootstrap;
-        $this->provider = new Provider;
     }
 
     /**
@@ -66,26 +52,18 @@ Iono.Console";
      */
     protected function boot($app = null)
     {
-        $this->container['path'] = __DIR__ . "/app";
         $this->container['prefix'] = $this->prefix;
-
-        $this->container = $this->bootstrap->register($this->container, $this);
 
         // file scan
         $reflection = new Tokenizer($this->container, new Color);
 
         // application command
-        $this->registerCommand(new ApplicationCommand($reflection, $this->container));
+        $this->registerCommand(new Commands\ApplicationCommand($reflection, $this->container));
 
         // application list command
-        $this->registerCommand(new ListCommand($reflection));
+        $this->registerCommand(new Commands\ListCommand($reflection));
 
         return $this;
-    }
-
-    protected function provider(Container $container)
-    {
-
     }
 
     /**
@@ -97,4 +75,12 @@ Iono.Console";
         return $this->add($command);
     }
 
+    /**
+     * get container
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
 }

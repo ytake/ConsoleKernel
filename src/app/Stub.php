@@ -4,6 +4,11 @@ namespace Iono\Console\app;
 class Stub
 {
 
+    public function __construct(SampleStub $sampler)
+    {
+
+    }
+
     /**
      * @return array
      */

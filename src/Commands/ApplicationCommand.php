@@ -73,6 +73,7 @@ class ApplicationCommand extends Command
             if(isset($parsed['query'])) {
                 parse_str($parsed['query'], $query);
             }
+
             $class = $this->container->make($alias);
             $start = microtime(true);
             $class->action($query);
