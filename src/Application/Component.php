@@ -3,7 +3,6 @@ namespace Iono\Console\Application;
 
 use Illuminate\Container\Container;
 
-
 trait Component
 {
 

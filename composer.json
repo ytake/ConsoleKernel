@@ -1,5 +1,5 @@
 {
-    "name": "iono/console",
+    "name": "iono/console-kernel",
     "description": "php cli application package(kernel)",
     "minimum-stability": "stable",
     "license": "MIT",

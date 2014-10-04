@@ -33,7 +33,8 @@ class Sample extends Application
      */
     public function action(array $array)
     {
-        echo '1';
         var_dump($this->component);
+        var_dump($this->stub->get());
+        //var_dump($this->component);
     }
 }
