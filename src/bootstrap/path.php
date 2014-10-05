@@ -2,5 +2,5 @@
 
 return [
 
-    'application.configure' => __DIR__ . '/../app/config'
+    'application.configure' => '/app/config'
 ];

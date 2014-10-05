@@ -9,6 +9,9 @@ namespace Iono\Console;
 class Container extends \Illuminate\Container\Container
 {
 
+    /** @var string  */
+    protected $componentTrait = "Iono\\Console\\Application\\Traits\\Component";
+
     /**
      * @return array
      */
@@ -32,14 +35,25 @@ class Container extends \Illuminate\Container\Container
 
         if (is_object($object)) {
             foreach (class_uses($object) as $trait) {
-                if (trait_exists($trait)) {
-                    $array = [
-                        'db' => ''
-                    ];
-                    call_user_func([$object, 'setComponent'], (object) $array);
+                if ($trait === $this->componentTrait) {
+                    call_user_func([$object, 'setComponent'], $this->injectTraits());
                 }
             }
         }
         $this->fireCallbackArray($object, $this->globalResolvingCallbacks);
+    }
+
+    /**
+     * @return object
+     */
+    private function injectTraits()
+    {
+        $bindings = $this->getBindings();
+        foreach($bindings as $key => $bind) {
+            if(strstr($key, 'component.')) {
+                $array[str_replace('component.', "", $key)] = $this->make($key);
+            }
+        }
+        return (object)$array;
     }
 }

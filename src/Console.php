@@ -32,10 +32,23 @@ Iono.Console";
     /** @var \Iono\Console\Container */
     protected $container;
 
-    public function __construct()
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container = null)
     {
         parent::__construct($this->name, $this->version);
-        $this->container = new \Iono\Console\Container;
+        $this->container = (is_null($container)) ? new \Iono\Console\Container : $container;
+        $this->initialize();
+    }
+
+    /**
+     * application initialize
+     * @return void
+     */
+    protected function initialize()
+    {
+        $this->container['component'] = [];
     }
 
     /**
