@@ -36,7 +36,7 @@ class Container extends \Illuminate\Container\Container
         if (is_object($object)) {
             foreach (class_uses($object) as $trait) {
                 if ($trait === $this->componentTrait) {
-                    call_user_func([$object, 'setComponent'], $this->injectTraits());
+                    call_user_func_array([$object, 'setComponent'], [$this->injectTraits(), $this]);
                 }
             }
         }
@@ -44,6 +44,7 @@ class Container extends \Illuminate\Container\Container
     }
 
     /**
+     * @access private
      * @return object
      */
     private function injectTraits()
@@ -51,9 +52,13 @@ class Container extends \Illuminate\Container\Container
         $bindings = $this->getBindings();
         foreach($bindings as $key => $bind) {
             if(strstr($key, 'component.')) {
-                $array[str_replace('component.', "", $key)] = $this->make($key);
+                $array[str_replace('component.', "", $key)] = $key;
             }
         }
-        return (object)$array;
+        /** @var \Illuminate\Config\Repository $config */
+        $config = $this->make($array['config']);
+        $array = array_merge($array, $config->get('component'));
+        return (object) $array;
     }
+
 }

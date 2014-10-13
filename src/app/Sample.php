@@ -19,22 +19,12 @@ class Sample extends Application
     /** @var  string */
     protected $description = "sample application";
 
-    /**
-     * @param Stub $stub
-     */
-    public function __construct(Stub $stub)
-    {
-        $this->stub = $stub;
-    }
-
     /**s
      * @param array $array
      * @return mixed|void
      */
     public function action(array $array)
     {
-        /** @var \Illuminate\Config\Repository $config */
-        $config = $this->component->config;
-        var_dump($config->get('config'));
+        $statement = $this->db->connection();
     }
 }

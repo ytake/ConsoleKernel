@@ -12,14 +12,28 @@ use Illuminate\Container\Container;
 trait Component
 {
 
-    protected $component;
+    /** @var   */
+    private $component;
+
+    /** @var   */
+    private $app;
 
     /**
-     * @param $container
-     * @return Container
+     * @param $inject
+     * @param $app
+     * @return void
      */
-    public function setComponent($container)
+    public function setComponent($inject, $app)
     {
-        return $this->component = $container;
+        $this->component = $inject;
+        $this->app = $app;
+    }
+
+    /**
+     * @param $name
+     */
+    public function __get($name)
+    {
+        return $this->app->make($this->component->$name);
     }
 }
