@@ -26,6 +26,6 @@ class Sample extends Application
     public function action(array $array)
     {
         $statement = $this->db->connection();
-        var_dump($this->cache->adapter());
+        $this->cache->adapter();
     }
 }

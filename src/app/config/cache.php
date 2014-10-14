@@ -5,7 +5,7 @@
 return [
 
     /*
-     * Supported: "file", "database", "apc", "memcached", "redis", "array"
+     * Supported: "file", "database", "apc", "memcached", "redis", "array"、"riak"
      */
     'driver' => 'file',
 
