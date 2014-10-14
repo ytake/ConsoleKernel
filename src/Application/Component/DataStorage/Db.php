@@ -23,9 +23,8 @@ class Db implements DbInterface
     public function connection($name = 'master')
     {
         $dbConfigure = $this->config->get('database')['db'];
-        $config = new Configuration([
-                \PDO::ATTR_DEFAULT_FETCH_MODE => $dbConfigure['fetch'],
-            ]);
-        return DriverManager::getConnection($dbConfigure[$name], $config);
+        $connection = DriverManager::getConnection($dbConfigure[$name], new Configuration);
+        $connection->setFetchMode($dbConfigure['fetch']);
+        return $connection;
     }
 }

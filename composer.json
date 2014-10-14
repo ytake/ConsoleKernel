@@ -18,8 +18,8 @@
         "andrewsville/php-token-reflection": "*",
         "illuminate/config": "4.2.*",
         "illuminate/container": "4.2.*",
+        "doctrine/cache": "1.*",
         "doctrine/dbal": "2.*",
-        "doctrine/annotations": "1.*",
         "predis/predis": "1.*",
         "swiftmailer/swiftmailer": "5.*",
         "monolog/monolog": "1.*",
@@ -33,5 +33,10 @@
         "psr-4": {
             "Iono\\Console\\": "src/"
         }
+    },
+    "suggest": {
+        "ext-riak": "Riak database PHP extension",
+        "ext-voltdb": "VoltDB database PHP extension",
+        "ext-pcntl": ""
     }
 }

@@ -1,8 +1,6 @@
 <?php
 namespace Iono\Console\Application\Traits;
 
-use Illuminate\Container\Container;
-
 /**
  * read only, Iono/Console Application Component
  * Class Component
@@ -15,7 +13,7 @@ trait Component
     /** @var   */
     private $component;
 
-    /** @var   */
+    /** @var \Iono\Console\Container */
     private $app;
 
     /**
@@ -31,6 +29,7 @@ trait Component
 
     /**
      * @param $name
+     * @return mixed
      */
     public function __get($name)
     {
