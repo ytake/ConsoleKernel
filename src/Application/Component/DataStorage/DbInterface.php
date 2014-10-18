@@ -10,8 +10,7 @@ interface DbInterface
 
     /**
      * @param string $name
-     * @return \Doctrine\DBAL\Connection
-     * @throws \Doctrine\DBAL\DBALException
+     * @return mixed
      */
     public function connection($name = 'master');
 }

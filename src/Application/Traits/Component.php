@@ -1,6 +1,9 @@
 <?php
 namespace Iono\Console\Application\Traits;
 
+use \StdClass;
+use Iono\Console\Container;
+
 /**
  * read only, Iono/Console Application Component
  * Class Component
@@ -11,17 +14,24 @@ trait Component
 {
 
     /** @var   */
-    private $component;
+    protected $component;
 
     /** @var \Iono\Console\Container */
-    private $app;
+    protected $app;
+
+
+    public function __construct(stdClass $inject, Container $app)
+    {
+        $this->component = $inject;
+        $this->app = $app;
+    }
 
     /**
-     * @param $inject
-     * @param $app
+     * @param stdClass $inject
+     * @param Container $app
      * @return void
      */
-    public function setComponent($inject, $app)
+    public function setComponent(stdClass $inject, Container $app)
     {
         $this->component = $inject;
         $this->app = $app;
@@ -33,6 +43,7 @@ trait Component
      */
     public function __get($name)
     {
+
         return $this->app->make($this->component->$name);
     }
 }

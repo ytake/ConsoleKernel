@@ -8,7 +8,7 @@ use Iono\Console\Application\Traits\Component;
  * @package Iono\Console\Application\Component\Cache
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  */
-class Factory implements CacheInterface
+class Factory
 {
 
     use Component;
@@ -20,12 +20,11 @@ class Factory implements CacheInterface
      * @param $adapter
      * @return $this
      */
-    public function adapter($adapter = 'file')
+    public function adapter($adapter = null)
     {
-        $this->adapter = $adapter;
-        $adapter = ucfirst($this->adapter);
-        $cache = "get{$adapter}Cache";
-        return $this->{$cache}();
+        $cacheConfigure = $this->config->get('cache');
+        $this->adapter = (is_null($adapter)) ? $cacheConfigure['driver'] : $adapter;
+        return $this->buildDriver();
     }
 
     /**
@@ -43,8 +42,8 @@ class Factory implements CacheInterface
      */
     protected function getFileCache()
     {
-        $cacheConfigure = $this->config->get('cache');
-        return new \Doctrine\Common\Cache\FilesystemCache($cacheConfigure['path']);
+        $cacheConfigure = $this->config->get('cache')['path'];
+        return new \Doctrine\Common\Cache\FilesystemCache($cacheConfigure);
     }
 
     /**
@@ -52,7 +51,7 @@ class Factory implements CacheInterface
      */
     protected function getMemcachedCache()
     {
-        $cacheConfigure = $this->config->get('memcached');
+        $cacheConfigure = $this->config->get('cache')['memcached'];
         $cacheClass = new \Doctrine\Common\Cache\MemcachedCache();
         $memcached = new \Memcached;
         foreach($cacheConfigure as $connect) {
@@ -76,5 +75,17 @@ class Factory implements CacheInterface
     protected function getRedisCache()
     {
 
+    }
+
+
+    /**
+     * @access private
+     * @return mixed
+     */
+    private function buildDriver()
+    {
+        $adapter = ucfirst($this->adapter);
+        $cache = "get{$adapter}Cache";
+        return call_user_func([$this, $cache]);
     }
 } 

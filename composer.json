@@ -18,9 +18,9 @@
         "andrewsville/php-token-reflection": "*",
         "illuminate/config": "4.2.*",
         "illuminate/container": "4.2.*",
+        "illuminate/redis": "4.2.*",
         "doctrine/cache": "1.*",
         "doctrine/dbal": "2.*",
-        "predis/predis": "1.*",
         "swiftmailer/swiftmailer": "5.*",
         "monolog/monolog": "1.*",
 	    "nesbot/carbon": "*"

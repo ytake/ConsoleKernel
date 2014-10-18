@@ -1,6 +1,10 @@
 <?php
 namespace Iono\Console;
 
+use Closure;
+use ReflectionClass;
+use Illuminate\Container\BindingResolutionException;
+
 /**
  * Class Container
  * @package Iono\Console
@@ -18,6 +22,44 @@ class Container extends \Illuminate\Container\Container
     public function getAliases()
     {
         return $this->aliases;
+    }
+
+    /**
+     * @param string $concrete
+     * @param array $parameters
+     * @return mixed|object
+     * @throws BindingResolutionException
+     */
+    public function build($concrete, $parameters = [])
+    {
+
+        if ($concrete instanceof Closure) {
+            return $concrete($this, $parameters);
+        }
+        $reflector = new ReflectionClass($concrete);
+
+        if(!$reflector->isInstantiable()) {
+            $message = "Target [$concrete] is not instantiable.";
+            throw new BindingResolutionException($message);
+        }
+
+        $constructor = $reflector->getConstructor();
+        if (is_null($constructor)) {
+
+            return $reflector->newInstance();
+        }
+
+        $dependencies = $constructor->getParameters();
+
+        $parameters = $this->keyParametersByArgument(
+            $dependencies, $parameters
+        );
+
+        $instances = $this->getDependencies(
+            $dependencies, $parameters
+        );
+
+        return $reflector->newInstanceArgs($instances);
     }
 
     /**

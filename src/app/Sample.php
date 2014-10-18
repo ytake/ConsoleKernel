@@ -19,13 +19,19 @@ class Sample extends Application
     /** @var  string */
     protected $description = "sample application";
 
-    /**s
+    /**
      * @param array $array
      * @return mixed|void
      */
     public function action(array $array)
     {
+
         $statement = $this->db->connection();
-        $this->cache->adapter();
+        /** @var \Doctrine\Common\Cache\FilesystemCache $cache */
+//        $cache = $this->cache->adapter('memcached');
+//        $cache->save('cache_id', 'my_data');
+//        var_dump($cache->fetch('cache_id'));
+
+        $this->redis;
     }
 }
