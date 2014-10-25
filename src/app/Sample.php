@@ -32,6 +32,6 @@ class Sample extends Application
 //        $cache->save('cache_id', 'my_data');
 //        var_dump($cache->fetch('cache_id'));
 
-        $this->redis;
+        var_dump($this->redis->connection()->get('*'));
     }
 }

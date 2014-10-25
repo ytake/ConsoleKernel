@@ -48,7 +48,6 @@ class Container extends \Illuminate\Container\Container
 
             return $reflector->newInstance();
         }
-
         $dependencies = $constructor->getParameters();
 
         $parameters = $this->keyParametersByArgument(
@@ -58,7 +57,6 @@ class Container extends \Illuminate\Container\Container
         $instances = $this->getDependencies(
             $dependencies, $parameters
         );
-
         return $reflector->newInstanceArgs($instances);
     }
 

@@ -4,7 +4,6 @@ namespace Iono\Console;
 use Colors\Color;
 use ReflectionClass;
 use TokenReflection\Broker;
-use Iono\Console\Container;
 
 /**
  * Class Tokenizer
@@ -71,14 +70,16 @@ class Tokenizer
      * @param string $command
      * @return mixed
      */
-    public function getProperty($class, $command = '')
+    public function getProperty($class, $command = null)
     {
-        $reflectionClass = new ReflectionClass($class);
-        $instance = $reflectionClass->newInstanceWithoutConstructor();
-        $reflectionPropertyCommand = $reflectionClass->getProperty($command);
-        $reflectionPropertyCommand->setAccessible(true);
-
-        return $reflectionPropertyCommand->getValue($instance);
+        if(!is_null($command)) {
+            $reflectionClass = new ReflectionClass($class);
+            $instance = $reflectionClass->newInstanceWithoutConstructor();
+            $reflectionPropertyCommand = $reflectionClass->getProperty($command);
+            $reflectionPropertyCommand->setAccessible(true);
+            return $reflectionPropertyCommand->getValue($instance);
+        }
+        return null;
     }
 
 

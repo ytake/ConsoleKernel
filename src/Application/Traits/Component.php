@@ -19,13 +19,6 @@ trait Component
     /** @var \Iono\Console\Container */
     protected $app;
 
-
-    public function __construct(stdClass $inject, Container $app)
-    {
-        $this->component = $inject;
-        $this->app = $app;
-    }
-
     /**
      * @param stdClass $inject
      * @param Container $app
@@ -43,7 +36,6 @@ trait Component
      */
     public function __get($name)
     {
-
         return $this->app->make($this->component->$name);
     }
 }

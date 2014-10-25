@@ -18,7 +18,7 @@
         "andrewsville/php-token-reflection": "*",
         "illuminate/config": "4.2.*",
         "illuminate/container": "4.2.*",
-        "illuminate/redis": "4.2.*",
+        "predis/predis": "1.*",
         "doctrine/cache": "1.*",
         "doctrine/dbal": "2.*",
         "swiftmailer/swiftmailer": "5.*",
@@ -26,8 +26,11 @@
 	    "nesbot/carbon": "*"
     },
     "require-dev": {
+        "symfony/framework-bundle": "2.*",
+        "symfony/console": "2.*",
         "phpunit/phpunit": "4.*",
-        "mockery/mockery": "*"
+        "mockery/mockery": "0.*",
+        "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {
         "psr-4": {
