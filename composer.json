@@ -1,7 +1,7 @@
 {
     "name": "iono/console-kernel",
     "description": "php cli application package(kernel)",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "license": "MIT",
     "keywords": ["console", "php", "cli"],
     "authors": [
@@ -13,17 +13,17 @@
     "require": {
         "php": ">=5.4",
         "ext-tokenizer": "*",
-        "symfony/console": "2.*@stable",
-        "kevinlebrun/colors.php": "0.*@stable",
-        "andrewsville/php-token-reflection": "*@stable",
-        "illuminate/config": "4.2.*@stable",
-        "illuminate/container": "4.2.*@stable",
-        "predis/predis": "1.*@stable",
-        "doctrine/cache": "1.*@stable",
-        "doctrine/dbal": "2.*@stable",
-        "swiftmailer/swiftmailer": "5.*@stable",
-        "monolog/monolog": "1.*@stable",
-        "nesbot/carbon": "*@stable"
+        "symfony/console": "2.*",
+        "kevinlebrun/colors.php": "0.*",
+        "andrewsville/php-token-reflection": "*",
+        "illuminate/config": "4.2.*",
+        "illuminate/container": "4.2.*",
+        "predis/predis": "1.*",
+        "doctrine/cache": "1.*",
+        "doctrine/dbal": "2.*",
+        "swiftmailer/swiftmailer": "5.*",
+        "monolog/monolog": "1.*",
+        "nesbot/carbon": "*"
     },
     "require-dev": {
         "symfony/framework-bundle": "2.*",
