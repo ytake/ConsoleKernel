@@ -4,6 +4,8 @@ namespace Iono\Console;
 use Colors\Color;
 use ReflectionClass;
 use TokenReflection\Broker;
+use Iono\Console\Application\Reader;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * Class Tokenizer
@@ -25,6 +27,9 @@ class Tokenizer
     /** @var \Iono\Console\Container  */
     protected $container;
 
+    /** @var Reader  */
+    protected $reader;
+
     /**
      * @param Container $container
      * @param Color $color
@@ -34,6 +39,7 @@ class Tokenizer
         $this->broker = new Broker(new Broker\Backend\Memory());
         $this->color = $color;
         $this->container = $container;
+        $this->reader = new Reader($container);
     }
 
     /**
@@ -42,7 +48,7 @@ class Tokenizer
      */
     public function getApplication()
     {
-        $this->broker->processDirectory($this->container['path']);
+        $this->broker->processDirectory($this->container['directory']['application.path']);
         $classes = $this->broker->getClasses();
 
         foreach($classes as $class) {
@@ -60,6 +66,7 @@ class Tokenizer
                     $this->container->alias($class->getName(), "{$this->container['prefix']}{$commandValue}");
                 }
             }
+            $this->reader->scanner($class->getName());
         }
         return $this->container;
     }
@@ -82,9 +89,4 @@ class Tokenizer
         return null;
     }
 
-
-    public function binder()
-    {
-        // @todo
-    }
 }

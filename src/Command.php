@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class Command
  * @package Iono\Console
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 abstract class Command extends SfCommand implements CommandInterface
 {

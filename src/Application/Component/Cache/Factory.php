@@ -7,6 +7,7 @@ use Iono\Console\Application\Traits\Component;
  * Class Factory
  * @package Iono\Console\Application\Component\Cache
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Factory
 {

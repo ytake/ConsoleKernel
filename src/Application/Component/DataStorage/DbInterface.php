@@ -4,6 +4,7 @@ namespace Iono\Console\Application\Component\DataStorage;
 /**
  * Interface DbInterface
  * @package Iono\Console\Application\Component\DataStorage
+ * @license http://opensource.org/licenses/MIT MIT
  */
 interface DbInterface
 {

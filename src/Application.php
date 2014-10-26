@@ -5,6 +5,7 @@ namespace Iono\Console;
  * Class Application
  * @package Iono\Console
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 abstract class Application implements ApplicationInterface
 {

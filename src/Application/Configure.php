@@ -7,6 +7,7 @@ use Iono\Console\Container;
  * Class Configure
  * @package Iono\Console\Application
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Configure
 {
@@ -20,7 +21,7 @@ class Configure
         return new \Illuminate\Config\Repository(
             new \Illuminate\Config\FileLoader(
                 new \Illuminate\Filesystem\Filesystem(),
-                $container['base'] . $container['directory.structure']['application.configure']
+                $container['directory']['application.configure']
             ),
             null
         );

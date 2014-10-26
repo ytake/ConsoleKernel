@@ -1,7 +1,7 @@
 <?php
 namespace Iono\Console\Application\Traits;
 
-use \StdClass;
+use StdClass;
 use Iono\Console\Container;
 
 /**
@@ -9,6 +9,7 @@ use Iono\Console\Container;
  * Class Component
  * @package Iono\Console\Application\Traits
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 trait Component
 {

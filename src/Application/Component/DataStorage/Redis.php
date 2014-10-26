@@ -8,6 +8,7 @@ use Iono\Console\Application\Traits\Component;
  * Class Redis
  * @package Iono\Console\Application\Component\DataStorage
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Redis implements DbInterface
 {

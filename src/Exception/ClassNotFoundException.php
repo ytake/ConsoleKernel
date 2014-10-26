@@ -5,6 +5,7 @@ namespace Iono\Console\Exception;
  * Class ClassNotFoundException
  * @package Iono\Console\Exceptions
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class ClassNotFoundException extends \Exception
 {

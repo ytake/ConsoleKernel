@@ -9,6 +9,7 @@ use Iono\Console\Application\Traits\Component;
  * Class Db
  * @package Iono\Console\Application\Component\DataStorage
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Db implements DbInterface
 {

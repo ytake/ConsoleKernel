@@ -24,7 +24,7 @@ class Console extends ConsoleApplication
 Iono.Console";
 
     /** @var float  console application version */
-    private $version = 0.5;
+    private $version = 0.1;
 
     /** @var string  */
     private $prefix = "iono.command.";
@@ -35,7 +35,7 @@ Iono.Console";
     /**
      * @param Container $container
      */
-    public function __construct(Container $container = null)
+    public function __construct($container = null)
     {
         parent::__construct($this->name, $this->version);
         $this->container = (is_null($container)) ? new \Iono\Console\Container : $container;
@@ -54,16 +54,15 @@ Iono.Console";
     /**
      * console start
      */
-    public function start($app = null)
+    public function start()
     {
-        $this->boot($app = null)->run();
+        $this->boot()->run();
     }
 
     /**
-     * @param null $app
      * @return $this
      */
-    protected function boot($app = null)
+    protected function boot()
     {
         $this->container['prefix'] = $this->prefix;
 
@@ -75,6 +74,9 @@ Iono.Console";
 
         // application list command
         $this->registerCommand(new Commands\ListCommand($reflection));
+
+        // application generator command
+        $this->registerCommand(new Commands\GeneratorCommand($this->container));
 
         return $this;
     }
@@ -95,5 +97,21 @@ Iono.Console";
     public function getContainer()
     {
         return $this->container;
+    }
+
+    /**
+     * @param array $paths
+     * @return void
+     */
+    public function installDirectory(array $paths)
+    {
+        $container = $this->container;
+        // directory structure
+        $container['directory'] = $paths;
+        // register configure
+        $container->bindShared('component.config', function () use($container) {
+                return \Iono\Console\Application\Configure::registerConfigure($container);
+            }
+        );
     }
 }

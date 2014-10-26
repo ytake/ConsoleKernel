@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ApplicationCommand
  * @package Iono\Console\Commands
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class ApplicationCommand extends Command
 {

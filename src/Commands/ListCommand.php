@@ -12,6 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ListCommand
  * @package Iono\Console\Commands
  * @author yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class ListCommand extends Command
 {
