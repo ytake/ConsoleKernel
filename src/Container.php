@@ -1,10 +1,6 @@
 <?php
 namespace Iono\Console;
 
-use Closure;
-use ReflectionClass;
-use Illuminate\Container\BindingResolutionException;
-
 /**
  * Class Container
  * @package Iono\Console

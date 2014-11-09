@@ -22,6 +22,7 @@ class ConfigureTest extends \PHPUnit_Framework_TestCase
 
     public function testRegister()
     {
+        $container['prefix'] = "iono.command.";
         $this->container['directory'] = require TEST_DIR ."/tests/path.php";
         $repository = $this->configure->registerConfigure($this->container);
         $this->assertInstanceOf("\Illuminate\Config\Repository", $repository);
