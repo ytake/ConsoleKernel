@@ -5,7 +5,6 @@ use Colors\Color;
 use ReflectionClass;
 use TokenReflection\Broker;
 use Iono\Console\Application\Reader;
-use Doctrine\Common\Annotations\AnnotationReader;
 
 /**
  * Class Tokenizer

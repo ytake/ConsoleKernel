@@ -43,6 +43,7 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setConfigure(\Iono\Console\Container $container)
     {
+        $container['prefix'] = "iono.command.";
         $container['directory'] = require TEST_DIR ."/tests/path.php";
         $container->bindShared('component.config', function () use($container) {
                 return \Iono\Console\Application\Configure::registerConfigure($container);
