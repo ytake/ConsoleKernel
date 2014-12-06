@@ -12,15 +12,18 @@
 >
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>./tests/</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
-        <filter>
-            <whitelist>
-                <directory>./src</directory>
-            </whitelist>
-        </filter>
-        <logging>
-            <log type="coverage-clover" target="build/logs/clover.xml"/>
-        </logging>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+            <exclude>
+                <file>./src/Exception/ClassNotFoundException.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
 </phpunit>

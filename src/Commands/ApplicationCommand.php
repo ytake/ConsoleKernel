@@ -7,6 +7,7 @@ use Iono\Console\Container;
 use Iono\Console\Exception\ClassNotFoundException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -47,6 +48,7 @@ class ApplicationCommand extends Command
     public function arguments()
     {
         $this->addArgument('action', InputArgument::REQUIRED, 'specify your script name');
+        $this->addOption('time', null, InputOption::VALUE_NONE, 'display execution time');
     }
 
     /**
@@ -57,10 +59,9 @@ class ApplicationCommand extends Command
      */
     public function action(InputInterface $input, OutputInterface $output)
     {
-        //
         $query = [];
-        //
         $parsed = parse_url($input->getArgument('action'));
+        $displayTime = $input->getOption('time');
         // search application
         $application = $this->tokenizer->getApplication();
         // @todo refactor
@@ -77,11 +78,14 @@ class ApplicationCommand extends Command
 
             $class = $this->container->make($alias);
             $start = microtime(true);
+            $class->init();
             $class->action($query);
             /** @var  $end */
             $end = microtime(true);
             $process = sprintf('%0.5f', ($end - $start));
-            $output->writeln("<info>{$process}</info><comment>/second</comment>");
+            if($displayTime) {
+                $output->writeln("<info>{$process}</info><comment>/second</comment>");
+            }
         }
     }
 }

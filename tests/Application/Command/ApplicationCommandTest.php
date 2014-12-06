@@ -1,6 +1,8 @@
 <?php
 namespace Iono\TestConsole\Application\Command;
 
+use Symfony\Component\Console\Tester\CommandTester;
+
 class ApplicationCommandTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -29,15 +31,14 @@ class ApplicationCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCleanCommand()
     {
-        $this->command->run(
-            new \Symfony\Component\Console\Input\ArrayInput(
-                [
-                    'action' => "testing"
-                ]
-            ),
-            new \Symfony\Component\Console\Output\NullOutput
-        );
+        /** @var \Symfony\Component\Console\Tester\CommandTester $command */
+        $command = new CommandTester($this->command);
+        $command->execute(['action' => "testing"]);
+        $this->assertEquals('', $command->getDisplay());
 
+        $command = new CommandTester($this->command);
+        $command->execute(['action' => "testing", '--time' => true]);
+        $this->assertNotEquals('', $command->getDisplay());
     }
 
     /**

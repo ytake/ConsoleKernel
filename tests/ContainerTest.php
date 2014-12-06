@@ -1,7 +1,7 @@
 <?php
 
 
-class ContainerTest extends \PHPUnit_Framework_TestCase
+class ContainerTest extends TestCase
 {
 
     /** @var Iono\Console\Container */

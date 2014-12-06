@@ -63,23 +63,6 @@ class Factory
     }
 
     /**
-     * @todo
-     */
-    protected function getRiakCache()
-    {
-
-    }
-
-    /**
-     * @todo
-     */
-    protected function getRedisCache()
-    {
-
-    }
-
-
-    /**
      * @access private
      * @return mixed
      */
