@@ -17,6 +17,14 @@ abstract class Application implements ApplicationInterface
     protected $description;
 
     /**
+     * initialize
+     */
+    public function init()
+    {
+
+    }
+
+    /**
      * @param array $array
      * @return mixed
      */

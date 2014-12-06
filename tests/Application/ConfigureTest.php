@@ -28,4 +28,4 @@ class ConfigureTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf("\Illuminate\Config\Repository", $repository);
         $this->assertInternalType('array', $repository->get('config'));
     }
-} 
+}

@@ -37,6 +37,11 @@
             "Iono\\Console\\": "src/"
         }
     },
+    "autoload-dev": {
+        "files": [
+            "tests/TestCase.php"
+        ]
+    },
     "suggest": {
         "ext-riak": "Riak database PHP extension",
         "ext-voltdb": "VoltDB database PHP extension",
