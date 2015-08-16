@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1439742198">
+  <project timestamp="1439742198">
+    <package name="Iono\Console">
+      <file name="/Applications/MAMP/htdocs/Iono.ConsoleKernel/src/Application.php">
+        <class name="Application" namespace="Iono\Console" fullPackage="Iono" package="Iono">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="26" ncloc="12" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/Applications/MAMP/htdocs/Iono.ConsoleKernel/src/Command.php">
+        <class name="Command" namespace="Iono\Console" fullPackage="Iono" package="Iono">
+          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="10" coveredelements="0"/>
+        </class>
+        <line num="45" type="method" name="execute" crap="2" count="0"/>
+        <line num="46" type="stmt" count="0"/>
+        <line num="47" type="stmt" count="0"/>
+        <line num="48" type="stmt" count="0"/>
+        <line num="55" type="method" name="configure" crap="2" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="57" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="0"/>
+        <line num="59" type="stmt" count="0"/>
+        <line num="60" type="stmt" count="0"/>
+        <metrics loc="61" ncloc="32" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="10" coveredelements="0"/>
+      </file>
+      <file name="/Applications/MAMP/htdocs/Iono.ConsoleKernel/src/Console.php">
+        <class name="Console" namespace="Iono\Console" fullPackage="Iono" package="Iono">
+          <metrics methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="3" elements="13" coveredelements="4"/>
+        </class>
+        <line num="40" type="method" name="__construct" crap="2" count="1"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="44" type="stmt" count="1"/>
+        <line num="49" type="method" name="start" crap="2" count="0"/>
+        <line num="51" type="stmt" count="0"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="57" type="method" name="boot" crap="2" count="0"/>
+        <line num="59" type="stmt" count="0"/>
+        <line num="67" type="method" name="registerCommand" crap="2" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="77" type="method" name="getContainer" crap="2" count="0"/>
+        <line num="79" type="stmt" count="0"/>
+        <metrics loc="81" ncloc="51" classes="1" methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="3" elements="13" coveredelements="4"/>
+      </file>
+    </package>
+    <file name="/Applications/MAMP/htdocs/Iono.ConsoleKernel/src/ApplicationInterface.php">
+      <metrics loc="20" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <metrics files="4" loc="188" ncloc="104" classes="3" methods="7" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="3" elements="23" coveredelements="4"/>
+  </project>
+</coverage>

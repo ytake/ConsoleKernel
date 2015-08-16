@@ -1,19 +1,23 @@
 <?php
+
 namespace Iono\Console;
 
 use Colors\Color;
-use Iono\Console\Commands\CommandInterface;
+use Illuminate\Container\Container;
 use Symfony\Component\Console\Application as ConsoleApplication;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class Console
+ *
  * @package Iono\Console
  * @author  yuuki.takezawa<yuuki.takezawa@comnect.jp.net>
  * @license http://opensource.org/licenses/MIT MIT
  */
 class Console extends ConsoleApplication
 {
-
     /** @var string  console application name */
     private $name = "
   _____                     ___                      _
@@ -26,7 +30,7 @@ Iono.Console";
     /** @var float  console application version */
     private $version = 0.1;
 
-    /** @var string  */
+    /** @var string */
     private $prefix = "iono.command.";
 
     /** @var \Iono\Console\Container */
@@ -38,25 +42,20 @@ Iono.Console";
     public function __construct($container = null)
     {
         parent::__construct($this->name, $this->version);
-        $this->container = (is_null($container)) ? new \Iono\Console\Container : $container;
-        $this->initialize();
+        $this->container = (is_null($container)) ? new Container : $container;
     }
 
     /**
-     * application initialize
-     * @return void
+     * @param InputInterface|null  $input
+     * @param OutputInterface|null $output
+     *
+     * @return int|void
+     * @throws \Exception
      */
-    protected function initialize()
+    public function run(InputInterface $input = null, OutputInterface $output = null)
     {
-        $this->container['component'] = [];
-    }
-
-    /**
-     * console start
-     */
-    public function start()
-    {
-        $this->boot()->run();
+        // $this->boot();
+        parent::run($input, $output);
     }
 
     /**
@@ -64,54 +63,26 @@ Iono.Console";
      */
     protected function boot()
     {
-        $this->container['prefix'] = $this->prefix;
-
-        // file scan
-        $reflection = new Tokenizer($this->container, new Color);
-
-        // application command
-        $this->registerCommand(new Commands\ApplicationCommand($reflection, $this->container));
-
-        // application list command
-        $this->registerCommand(new Commands\ListCommand($reflection));
-
-        // application generator command
-        $this->registerCommand(new Commands\GeneratorCommand($this->container));
-
         return $this;
     }
 
     /**
-     * @param CommandInterface $command
-     * @return \Symfony\Component\Console\Command\Command
+     * @param Command $command
+     *
+     * @return Command
      */
-    public function registerCommand(CommandInterface $command)
+    public function registerCommand(Command $command)
     {
         return $this->add($command);
     }
 
     /**
      * get container
+     *
      * @return Container
      */
     public function getContainer()
     {
         return $this->container;
-    }
-
-    /**
-     * @param array $paths
-     * @return void
-     */
-    public function installDirectory(array $paths)
-    {
-        $container = $this->container;
-        // directory structure
-        $container['directory'] = $paths;
-        // register configure
-        $container->bindShared('component.config', function () use($container) {
-                return \Iono\Console\Application\Configure::registerConfigure($container);
-            }
-        );
     }
 }

@@ -15,9 +15,7 @@
         "ext-tokenizer": "*",
         "symfony/console": "2.*",
         "kevinlebrun/colors.php": "0.*",
-        "andrewsville/php-token-reflection": "*",
-        "illuminate/config": "4.2.*",
-        "illuminate/container": "4.2.*",
+        "illuminate/container": "5.*",
         "predis/predis": "1.*",
         "doctrine/cache": "1.*",
         "doctrine/dbal": "2.*",
@@ -36,11 +34,6 @@
         "psr-4": {
             "Iono\\Console\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "files": [
-            "tests/TestCase.php"
-        ]
     },
     "suggest": {
         "ext-riak": "Riak database PHP extension",
